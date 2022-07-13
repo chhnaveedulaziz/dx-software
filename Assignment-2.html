@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise</title>
+    <style>
+      .color-blue {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>JavaScript HTML DOM</h2>
+    <div id="main">
+      <p>Finding HTML Elements by Tag Name</p>
+      <p>This example demonstrates the <b>getElementsByTagName</b> method.</p>
+    </div>
+
+    <p id="demo"></p>
+
+    <button type="button" id="btn1" class="color-blue">Button 1</button>
+    <button type="button" id="btn2" class="color-blue">Button 2</button>
+
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", () => {
+        /** @type {[HTMLParagraphElement, HTMLParagraphElement]} */
+        const [firstP, secondP] = document.getElementsByTagName("p");
+        /** @type {HTMLParagraphElement} */
+        const demoEl = document.querySelector("p#demo");
+
+        // Set default text
+        demoEl.innerHTML = `The first paragraph (index 0) inside "main" is: ${firstP.innerHTML}`;
+
+        /** @type {Array<string>} */
+        const buttonsID = ["btn1", "btn2"];
+
+        const [firstButtonID] = buttonsID;
+
+        for (const buttonID of buttonsID) {
+          /** @type {string} */
+          const selector = `button#${buttonID}`;
+
+          // Bind event
+          document
+            .querySelector(selector)
+            .addEventListener("click", function () {
+              // Conditional setter
+              demoEl.innerHTML =
+                firstButtonID === this.getAttribute("id")
+                  ? firstP.innerHTML
+                  : secondP.innerHTML;
+            });
+        }
+      });
+    </script>
+  </body>
+</html>
